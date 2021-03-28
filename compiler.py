@@ -14,14 +14,15 @@ class Compiler:
         with open('code.zip', 'wb') as f:
             f.write(zip_file)
 
-        cmd = subprocess.Popen(["./compile.sh",f"{language}"],stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
+        cmd = subprocess.Popen(["./compile.sh","code.zip",f"{language}"],stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
         cmd.communicate()
         if cmd.returncode == 0:
             push_event(code_id,COMPILE_SUCCESS,title='code successfully compiled!')
-        else
+        else:
             with open('compile.log', 'r') as logfile:
-                push_event(code_id,COMPILE_FAILURE,title='failed to compile code!',logfile.read())
+                push_event(code_id,COMPILE_FAILURE,title='failed to compile code!',message=logfile.read())
                 return False
+
         f = open('compiled.zip', 'r')
         file = f.read()
         f.close()
