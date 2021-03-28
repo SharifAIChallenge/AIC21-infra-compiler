@@ -12,7 +12,7 @@ class Topics(enum.Enum):
 
 
 consumer = KafkaConsumer(
-    Topics.STORE_CODE,
+    Topics.STORE_CODE.value,
     bootstrap_servers=KAFKA_ENDPOINT,
     group_id=None,
     auto_offset_reset='earliest',
@@ -33,7 +33,7 @@ def get_message():
 
 def push_event(event) -> bool:
     try:
-        producer.send(topic=Topics.EVENTS, value=event)
+        producer.send(topic=Topics.EVENTS.value, value=event)
         producer.flush()
         return True
     except Exception as e:
