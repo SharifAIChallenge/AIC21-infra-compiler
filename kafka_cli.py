@@ -1,6 +1,7 @@
 import enum
 from kafka import KafkaConsumer, KafkaProducer
 from os import getenv
+import json
 
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
 
