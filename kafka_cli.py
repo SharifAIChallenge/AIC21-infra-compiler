@@ -20,7 +20,7 @@ consumer = KafkaConsumer(
 )
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_ENDPOINT,
-    value_serializer=lambda x: dumps(x).encode('utf-8')
+    value_serializer=lambda x: json.dumps(x).encode('utf-8')
 )
 
 def get_message():
