@@ -1,7 +1,6 @@
 #! /bin/bash
 
-LANG=$2
-CODE_PATH=`realpath $1`
+LANG=$1
 ROOT_DIR=$PWD
 LOG_PATH=$ROOT_DIR/compile.log
 BIN_PATH=$ROOT_DIR/binary
@@ -22,6 +21,8 @@ function warn {
 # generates FATAL log and exits with -1
 function fatal {
     log "===[FATAL]==[`date +'%F-%T'`]=== : $1"
+    # clean up
+    rm -rf /home/isolated
     exit -1
 }
 # check weather or not exitcode was 0 and return
@@ -38,18 +39,11 @@ function check {
 echo "" > $LOG_PATH
 
 # make an isolated aread
-mkdir isolated
-cd isolated
+mkdir /home/isolated
+cp -r * /home/isolated
+cd /home/isolated
 info "made an isolated area"
 
-# change directory to codebase
-tar -xvzf $CODE_PATH
-codebase_dir=`ls -d */ | head -n1`
-if [ -z  "$codebase_dir" ];then
-    codebase_dir="./"
-fi
-cd $codebase_dir
-echo "return code is :$?"
 info "entered the code base"
 
 #compile
@@ -86,7 +80,7 @@ case $LANG in
     info "language detected: jar"
     info "start compiling using jar-stub"
     
-    cat ../jar-stub.sh `ls | head -n1` > $BIN_PATH 2> $LOG_PATH  
+    cat /home/.jar-stub `ls | head -n1` > $BIN_PATH 2> $LOG_PATH  
     check $?
     
     ;;
@@ -101,17 +95,7 @@ case $LANG in
     ;;
 esac
 
-
-# make a tar.gz file
-cd $ROOT_DIR
-tar -cvzf bin.tgz binary
-
-if [ $? -eq 0 ];then
-    info "bin.zip file is ready to use"
-else
-    fatal "couldn't make the zip file"
-fi
-
+chmod +x $BIN_PATH
 # clean up
-rm -rf isolated
+rm -rf /home/isolated
 
