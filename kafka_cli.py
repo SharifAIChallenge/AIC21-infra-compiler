@@ -28,7 +28,7 @@ def get_message():
     for message in consumer:
         data = json.loads(message.value.decode("utf-8"))
         yield data
-        consumer.commit()
+        # consumer.commit()
 
 
 def push_event(event) -> bool:

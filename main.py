@@ -2,11 +2,13 @@ import enum
 from compiler import compile
 import kafka_cli as kcli
 
-while True:
+codes=kcli.get_message();
+
+for code in codes:
     try:
-        data = kcli.get_message()
-        print(f"got new record:{data}")
-        event = compile(data['code_id'], data['language'])
+        code = codes.__next__();
+        print(f"got new record:{code}")
+        event = compile(code['code_id'], code['language'])
         print(f"resulting event is:{event}")
         kcli.push_event(event)
     except Exception as e:
