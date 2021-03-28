@@ -23,8 +23,15 @@ class MinioClient:
 
     @staticmethod
     def upload(file_id, file, bucket_name) -> bool:
-        # todo Arshia
-        pass
+        content = ContentFile(file.read())
+        try:
+            client.put_object(
+                bucket_name, f'compiled/{file_id}.zip', content, length=len(content)
+            )
+            return True
+        except Exception as e:
+            print(e)
+            return False
 
     @staticmethod
     def get_file(file_id, bucket_name):
