@@ -1,8 +1,5 @@
 import enum
-from compiler import Compiler
 from kafka import KafkaConsumer, KafkaProducer
-import json
-import time
 from os import getenv
 
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
