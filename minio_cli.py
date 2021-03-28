@@ -16,7 +16,7 @@ client = Minio(
 
 
 class BucketName(enum.Enum):
-    Code = 'code'
+    Code = getenv('MINIO_BUCKET_CODE')
 
 
 for e in BucketName:
