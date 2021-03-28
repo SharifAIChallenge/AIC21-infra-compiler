@@ -2,7 +2,7 @@ FROM reg.aichallenge.ir/python:3.8
 
 RUN apt update && apt install -y vim curl gettext
 RUN apt-get update && \
-apt install -y vim curl gettext default-jre cmake && \
+apt install -y vim curl gettext cmake && \
 pip3 install pyinstaller
 
 WORKDIR /home
