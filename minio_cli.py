@@ -1,10 +1,15 @@
 from minio import Minio
 import enum
+from os import getenv
+
+MINIO_ENDPOINT = getenv('MINIO_ENDPOINT')
+MINIO_ACCESS_KEY = getenv('MINIO_ACCESS_KEY')
+MINIO_SECRET_KEY = getenv('MINIO_SECRET_KEY')
 
 client = Minio(
-    "185.204.197.207:9001",
-    access_key="ngnFxoPBtPZjBS7m4x12Yb1q5FovKGa4Bl9PsENs13nmDTRp",
-    secret_key="RuRRYyZKbOwVnkyNRYq1f7CRPq89XqOwFHkxoTY4Epq0fvHh",
+    MINIO_ENDPOINT,
+    access_key=MINIO_ACCESS_KEY,
+    secret_key=MINIO_SECRET_KEY,
     secure=False
 )
 

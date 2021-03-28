@@ -13,6 +13,7 @@ class Compiler:
             f.write(zip_file)
 
         ''' compile '''  # todo Arshia
+
         f = open('compiled.zip', 'r')
         file = f.read()
         f.close()
