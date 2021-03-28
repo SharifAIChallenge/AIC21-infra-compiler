@@ -26,18 +26,18 @@ def compile(code_id, language) -> Event:
 
     source_file = 'code.zip'
     if download_code(code_id, source_file) == False:
-        return Event(token_id=code_id, status_code=Event_Status.FILE_NOT_FOUND, title='failed to fetch the raw code!')
+        return Event(token_id=code_id, status_code=Event_Status.FILE_NOT_FOUND.value, title='failed to fetch the raw code!')
 
     if __compile(source_file, language) != 0:
         with open('compile.log', 'r') as logfile:
-            return Event(token_id=code_id, status_code=Event_Status.COMPILE_FAILED,
+            return Event(token_id=code_id, status_code=Event_Status.COMPILE_FAILED.value,
                          title='failed to compile code!', message_body=logfile.read())
 
     with open('bin.zip', 'r') as compiled:
         bin_zip = compiled.read()
 
     if MinioClient.upload(code_id, bin_zip, BucketName.Code.value) == False:
-        return Event(token_id=code_id, status_code=Event_Status.UPLOAD_FAILED, title='failed to upload the code!')
+        return Event(token_id=code_id, status_code=Event_Status.UPLOAD_FAILED.value, title='failed to upload the code!')
 
-    return Event(token_id=code_id, status_code=Event_Status.COMPILE_SUCCESS,
+    return Event(token_id=code_id, status_code=Event_Status.COMPILE_SUCCESS.value,
                  title='code successfully compiled!')
