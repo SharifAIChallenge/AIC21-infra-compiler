@@ -15,7 +15,7 @@ consumer = KafkaConsumer(
     Topics.STORE_CODE.value,
     bootstrap_servers=KAFKA_ENDPOINT,
     group_id=None,
-    auto_offset_reset='earliest',
+    auto_offset_reset='latest',
     enable_auto_commit=False,
 )
 producer = KafkaProducer(
