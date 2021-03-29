@@ -1,10 +1,10 @@
 #! /bin/bash
 
-LANG=$1
+LANG=$2
 ROOT_DIR=$PWD
 LOG_PATH=$ROOT_DIR/compile.log
 BIN_PATH=$ROOT_DIR/binary
-ZIP_FILE=`realpath $2`
+ZIP_FILE=`realpath $1`
 
 # takes a string and append it to the log file as well as the console tty
 function log {
