@@ -55,7 +55,7 @@ info "entered the code base"
 #compile
 case $LANG in
 
-  python|py|python3|PYTHON|PY|PYTHON3)
+  python|py|py3|python3|PYTHON|PY|PY3|PYTHON3)
     
     info "language detected: python"
     info "start compiling using pyinstaller"
