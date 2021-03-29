@@ -1,10 +1,10 @@
 #! /bin/bash
 
 LANG=$2
+CODE_PATH=`realpath $1`
 ROOT_DIR=$PWD
 LOG_PATH=$ROOT_DIR/compile.log
 BIN_PATH=$ROOT_DIR/binary
-ZIP_FILE=`realpath $1`
 
 # takes a string and append it to the log file as well as the console tty
 function log {
@@ -22,8 +22,6 @@ function warn {
 # generates FATAL log and exits with -1
 function fatal {
     log "===[FATAL]==[`date +'%F-%T'`]=== : $1"
-    # clean up
-    rm -rf /home/isolated
     exit -1
 }
 # check weather or not exitcode was 0 and return
@@ -40,19 +38,24 @@ function check {
 echo "" > $LOG_PATH
 
 # make an isolated aread
-mkdir /home/isolated
-cp -r * /home/isolated
-cd /home/isolated
+mkdir isolated
+cd isolated
 info "made an isolated area"
 
-unzip ZIP_FILE -d ./
-cd `ls */ -d | head -n1`
+# change directory to codebase
+unzip $CODE_PATH
+codebase_dir=`ls -d */ | head -n1`
+if [ -z  "$codebase_dir" ];then
+    codebase_dir="./"
+fi
+cd $codebase_dir
+echo "return code is :$?"
 info "entered the code base"
 
 #compile
 case $LANG in
 
-  python|py|python3|py3|PYTHON|PY|PYTHON3|PY3)
+  python|py|python3|PYTHON|PY|PYTHON3)
     
     info "language detected: python"
     info "start compiling using pyinstaller"
@@ -83,7 +86,7 @@ case $LANG in
     info "language detected: jar"
     info "start compiling using jar-stub"
     
-    cat /home/.jar-stub `ls | head -n1` > $BIN_PATH 2> $LOG_PATH  
+    cat ../jar-stub.sh `ls | grep "jar" | head -n1` > $BIN_PATH 2> $LOG_PATH  
     check $?
     
     ;;
@@ -98,7 +101,16 @@ case $LANG in
     ;;
 esac
 
-chmod +x $BIN_PATH
-# clean up
-rm -rf /home/isolated
 
+# make a tar.gz file
+cd $ROOT_DIR
+tar -cvzf bin.tgz binary
+
+if [ $? -eq 0 ];then
+    info "bin.zip file is ready to use"
+else
+    fatal "couldn't make the zip file"
+fi
+
+# clean up
+rm -rf isolated
