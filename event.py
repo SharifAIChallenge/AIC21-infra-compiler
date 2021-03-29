@@ -15,11 +15,11 @@ class Event_Status(enum.Enum):
     MATCH_SUCCESS=504
 
 class Event:
-    def __init__(self,title,token_id,status_code,message_body=""):
+    def __init__(self,title,token,status_code,message_body=""):
         self.title=title
         self.status_code=status_code
         self.message_body=message_body
         if message_body== "":
             self.message_body=self.title
-        self.token_id=token_id
+        self.token=token
     
