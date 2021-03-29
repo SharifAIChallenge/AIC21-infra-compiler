@@ -1,6 +1,9 @@
 from minio_cli import MinioClient, BucketName
 import subprocess
 from event import Event, Event_Status
+import logging
+
+logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 
 
 def download_code(code_id, dest) -> bool:
@@ -22,16 +25,21 @@ def __compile(source_file, language) -> int:
 
 
 def compile(code_id, language) -> Event:
-    print(f'receive message with code_id: {code_id}, language: {language}')
+    logging.info(f'1.receive message with code_id: {code_id}, language: {language}')
 
     source_file = 'code.zip'
     if not download_code(code_id, source_file):
-        return Event(token_id=code_id, status_code=Event_Status.FILE_NOT_FOUND.value, title='failed to fetch the raw code!')
+        return Event(token_id=code_id, status_code=Event_Status.FILE_NOT_FOUND.value,
+                     title='failed to fetch the raw code!')
+
+    logging.info(f'2.download code with code_id: {code_id}, language: {language}')
 
     if __compile(source_file, language) != 0:
         with open('compile.log', 'r') as logfile:
             return Event(token_id=code_id, status_code=Event_Status.COMPILE_FAILED.value,
                          title='failed to compile code!', message_body=logfile.read())
+
+    logging.info(f'3.compile code with code_id: {code_id}, language: {language}')
 
     with open('bin.tgz', 'rb') as compiled:
         if not MinioClient.upload(code_id, compiled, BucketName.Code.value):

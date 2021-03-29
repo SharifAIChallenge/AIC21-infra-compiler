@@ -2,7 +2,9 @@ from django.core.files.base import ContentFile
 from minio import Minio
 import enum
 from os import getenv
+import logging
 
+logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 MINIO_ENDPOINT = getenv('MINIO_ENDPOINT')
 MINIO_ACCESS_KEY = getenv('MINIO_ACCESS_KEY')
 MINIO_SECRET_KEY = getenv('MINIO_SECRET_KEY')
@@ -36,7 +38,7 @@ class MinioClient:
             )
             return True
         except Exception as e:
-            print(e)
+            logging.warning(e)
             return False
 
     @staticmethod

@@ -2,7 +2,9 @@ import enum
 from kafka import KafkaConsumer, KafkaProducer
 from os import getenv
 import json
+import logging
 
+logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
 
 
@@ -23,8 +25,10 @@ producer = KafkaProducer(
     value_serializer=lambda x: json.dumps(x).encode('utf-8')
 )
 
+
 def get_consumer():
     return consumer
+
 
 def get_message():
     for message in consumer:
@@ -39,5 +43,5 @@ def push_event(event) -> bool:
         producer.flush()
         return True
     except Exception as e:
-        print(e)
+        logging.warning(e)
         return False
