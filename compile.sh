@@ -4,6 +4,7 @@ LANG=$1
 ROOT_DIR=$PWD
 LOG_PATH=$ROOT_DIR/compile.log
 BIN_PATH=$ROOT_DIR/binary
+ZIP_FILE=`realpath $2`
 
 # takes a string and append it to the log file as well as the console tty
 function log {
@@ -44,6 +45,8 @@ cp -r * /home/isolated
 cd /home/isolated
 info "made an isolated area"
 
+unzip ZIP_FILE -d ./
+cd `ls */ -d | head -n1`
 info "entered the code base"
 
 #compile
