@@ -1,7 +1,7 @@
+from django.core.files.base import ContentFile
 from minio import Minio
 import enum
 from os import getenv
-
 
 MINIO_ENDPOINT = getenv('MINIO_ENDPOINT')
 MINIO_ACCESS_KEY = getenv('MINIO_ACCESS_KEY')
