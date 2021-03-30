@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
-
+KAFKA_CONSUMER_GP =  getenv('KAFKA_CONSUMER_GP')
 
 class Topics(enum.Enum):
     STORE_CODE = getenv('KAFKA_TOPIC_STORE_CODE')
@@ -16,7 +16,7 @@ class Topics(enum.Enum):
 consumer = KafkaConsumer(
     Topics.STORE_CODE.value,
     bootstrap_servers=KAFKA_ENDPOINT,
-    group_id=None,
+    group_id=KAFKA_CONSUMER_GP,
     auto_offset_reset='latest',
     enable_auto_commit=False,
 )

@@ -16,3 +16,5 @@ for message in kcli.get_consumer():
         kcli.push_event(event.__dict__)
     except Exception as e:
         logging.warning(e)
+    finally:
+        kcli.get_consumer().commit()

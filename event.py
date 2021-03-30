@@ -19,7 +19,5 @@ class Event:
         self.title=title
         self.status_code=status_code
         self.message_body=message_body
-        if message_body== "":
-            self.message_body=self.title
         self.token=token
     
