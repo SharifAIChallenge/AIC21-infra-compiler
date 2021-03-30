@@ -10,9 +10,9 @@ logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(le
 for message in kcli.get_consumer():
     try:
         code = json.loads(message.value.decode("utf-8"))
-        logging.info(f"got new record:{code}")
+        logging.warning(f"got new record:{code}")
         event = compile(code['code_id'], code['language'])
-        logging.info(f"resulting event is:{event}")
+        logging.warning(f"resulting event is:{event}")
         kcli.push_event(event.__dict__)
     except Exception as e:
         logging.warning(e)
