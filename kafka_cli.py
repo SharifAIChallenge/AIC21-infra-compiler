@@ -4,11 +4,9 @@ from os import getenv
 import json
 import logging
 
-logging.basicConfig(filename='app.log', filemode='w',
-                    format='%(asctime)s - %(levelname)s:%(message)s')
+logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
-KAFKA_CONSUMER_GP = getenv('KAFKA_CONSUMER_GP')
-
+KAFKA_CONSUMER_GP =  getenv('KAFKA_CONSUMER_GP')
 
 class Topics(enum.Enum):
     STORE_CODE = getenv('KAFKA_TOPIC_STORE_CODE')
@@ -39,9 +37,9 @@ def get_message():
         consumer.commit()
 
 
-def push_event(key,value) -> bool:
+def push_event(event) -> bool:
     try:
-        producer.send(topic=Topics.EVENTS.value,key=key ,value=value)
+        producer.send(topic=Topics.EVENTS.value, value=event)
         producer.flush()
         return True
     except Exception as e:
