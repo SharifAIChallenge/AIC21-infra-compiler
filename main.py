@@ -13,7 +13,7 @@ for message in kcli.get_consumer():
         logging.warning(f"got new record:{code}")
         event = compile(code['code_id'], code['language'])
         logging.warning(f"resulting event is:{event}")
-        kcli.push_event(event.__dict__)
+        kcli.push_event(event.token,event.__dict__)
     except Exception as e:
         logging.warning(e)
     finally:
