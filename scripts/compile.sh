@@ -16,6 +16,10 @@ function clean_up {
 
 source bin-maker.sh
 source logging.sh
+
+# clean up
+rm -rf $ROOT_DIR/isolated
+rm -rf $BIN_PATH
 empty_log
 
 # make an isolated aread
@@ -51,7 +55,8 @@ case $LANG in
     ;;
   java|JAVA)
     java-bin
-    [ $? -ne 0 ] && exit -1;;
+    [ $? -ne 0 ] && exit -1
+    ;;
   jar|JAR)
     jar-bin
     [ $? -ne 0 ] && exit -1
@@ -67,8 +72,7 @@ esac
 
 
 # make a tar.gz file
-cd $ROOT_DIR
-tar -cvzf $BIN_ZIP_PATH $BIN_PATH
+( cd `dirname $BIN_PATH` && tar -cvzf $BIN_ZIP_PATH `basename $BIN_PATH`)
 
 if [ $? -eq 0 ];then
     info "bin.zip file is ready to use"
