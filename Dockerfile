@@ -9,6 +9,10 @@ WORKDIR /home
 ADD ./requirements.txt ./requirements.txt
 # ENV PIP_NO_CACHE_DIR 1
 RUN pip install -r ./requirements.txt
-ADD ./ ./
-RUN chmod +x compile.sh
+
+ADD ./src ./src
+ADD ./scripts ./scripts
+
+RUN chmod +x scripts/compile.sh
+RUN chmod +x src/compiler-psudo.sh
 
