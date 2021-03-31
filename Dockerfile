@@ -16,4 +16,4 @@ ADD ./scripts ./scripts
 RUN chmod +x scripts/compile.sh
 RUN chmod +x src/compiler-psudo.sh
 
-WORKDIR /src
+WORKDIR /home/src
