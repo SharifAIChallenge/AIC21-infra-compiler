@@ -46,6 +46,6 @@ def new_token_logger(token):
 def remove_token_logger(token):
     for logger_name in loggers:
         logger = logging.getLogger(logger_name)
-        filelg_h = [h for h in logger.handlers if h.baseFilename ==
+        filelg_h = [h for h in logger.handlers if isinstance(h,logging.FileHandler) and h.baseFilename ==
                     f"{LOG_DIR}/{token}.log"]
         logger.removeHandler(filelg_h[0])

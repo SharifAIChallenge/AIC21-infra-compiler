@@ -11,8 +11,10 @@ logger = logging.getLogger("main")
 logger.info("compiler module is up and healty")
 
 for message in kcli.get_consumer():
+    token=""
     try:
         code = json.loads(message.value.decode("utf-8"))
+        token=code['code_id']
         log.new_token_logger(code['code_id'])
 
         logger.info(f"{'='*31}[{code['code_id']}]{'='*31}")
@@ -27,8 +29,8 @@ for message in kcli.get_consumer():
     except Exception as e:
         logger.exception("exception accured:")
     finally:
-        log.remove_token_logger(code['code_id'])
         kcli.get_consumer().commit()
     
+    log.remove_token_logger(token)
     logging.info('='*32*3)
         
