@@ -8,8 +8,8 @@ def init():
     # setting logger
     stdout_h = logging.StreamHandler()
     filelg_h = logging.FileHandler(f"{LOG_DIR}/compiler.log")
-    stdout_h.setLevel(logging.DEBUG)
-    filelg_h.setLevel(logging.DEBUG)
+    stdout_h.setLevel(logging.INFO)
+    filelg_h.setLevel(logging.INFO)
     stdout_f = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
     filelg_f = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -18,7 +18,7 @@ def init():
 
     for logger_name in loggers:
         logger = logging.getLogger(logger_name)
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
         logger.addHandler(stdout_h)
         logger.addHandler(filelg_h)
 
@@ -26,7 +26,7 @@ def init():
 def new_token_logger(token):
 
     filelg_h = logging.FileHandler(f"{LOG_DIR}/{token}.log")
-    filelg_h.setLevel(logging.DEBUG)
+    filelg_h.setLevel(logging.INFO)
 
     filelg_f = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
