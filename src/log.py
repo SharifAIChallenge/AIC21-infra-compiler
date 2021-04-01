@@ -1,9 +1,19 @@
 import logging
 
-LOG_DIR='/var/log/compiler'
+# LOG_DIR='/var/log/compiler'
+LOG_DIR='/home/kycilius/Documents/dev-null'
 loggers = ["compiler", "main", "kafka", "minio"]
-default_format = logging.Formatter('===[%(name)s]===[%(levelname)s]===\t %(message)s')
     
+class LoggerFormatter(logging.Formatter):
+    name_just=50
+    level_just=15
+    def format(self, record):
+        time = self.formatTime(record, self.datefmt)
+        return f'===[{time}]===[{record.name}]'.ljust(self.name_just,"=") + \
+            f'===[{record.levelname}]==='.ljust(self.level_just,"=") + \
+            f' {record.getMessage()} :: ({record.filename}:{record.lineno})'
+
+default_format = LoggerFormatter()
 
 def init():
 
