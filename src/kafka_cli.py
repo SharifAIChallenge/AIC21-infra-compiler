@@ -3,10 +3,11 @@ from kafka import KafkaConsumer, KafkaProducer
 from os import getenv
 import json
 import logging
-logger=logging.getLogger("kafka")
+logger = logging.getLogger("kafka")
 
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
-KAFKA_CONSUMER_GP =  getenv('KAFKA_CONSUMER_GP')
+KAFKA_CONSUMER_GP = getenv('KAFKA_CONSUMER_GP')
+
 
 class Topics(enum.Enum):
     STORE_CODE = getenv('KAFKA_TOPIC_STORE_CODE')

@@ -7,7 +7,7 @@ import logging
 
 
 log.init()
-logger=logging.getLogger("main")
+logger = logging.getLogger("main")
 
 for message in kcli.get_consumer():
     try:
@@ -16,12 +16,13 @@ for message in kcli.get_consumer():
         logger.info(f"===================[{code}]===================")
         logger.info("successfully accuried new record")
         event = compile(code['code_id'], code['language'])
-        logger.info (f"event retrived with status code [{Event_Status(event.status_code).name}]")
+        logger.info(
+            f"event retrived with status code [{Event_Status(event.status_code).name}]")
         logger.info(f"resulting event is: {event.title}")
         kcli.push_event(event.__dict__)
     except Exception as e:
         logger.exception()
     finally:
         logging.info(f"===================[{'='*32}]===================")
-        logger.removeHandler(code['code_id'])    
+        logger.removeHandler(code['code_id'])
         kcli.get_consumer().commit()

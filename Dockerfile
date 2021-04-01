@@ -19,5 +19,5 @@ RUN chmod +x src/compiler-psudo.sh
 
 
 # make logging directory
-RUN mkdir -p /var/log/compier
+RUN mkdir -p /var/log/compiler
 WORKDIR /home/src
