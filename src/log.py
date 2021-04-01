@@ -1,7 +1,6 @@
 import logging
 
-# LOG_DIR='/var/log/compiler'
-LOG_DIR='/home/kycilius/Documents/dev-null'
+LOG_DIR='/var/log/compiler'
 loggers = ["compiler", "main", "kafka", "minio"]
     
 class LoggerFormatter(logging.Formatter):
