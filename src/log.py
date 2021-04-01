@@ -2,19 +2,18 @@ import logging
 
 LOG_DIR='/var/log/compiler'
 loggers = ["compiler", "main", "kafka", "minio"]
-
+default_format = logging.Formatter('===[%(name)s]===[%(levelname)s]===\t %(message)s')
+    
 
 def init():
+
     # setting logger
     stdout_h = logging.StreamHandler()
     filelg_h = logging.FileHandler(f"{LOG_DIR}/compiler.log")
     stdout_h.setLevel(logging.INFO)
     filelg_h.setLevel(logging.INFO)
-    stdout_f = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-    filelg_f = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    stdout_h.setFormatter(stdout_f)
-    filelg_h.setFormatter(filelg_f)
+    stdout_h.setFormatter(default_format)
+    filelg_h.setFormatter(default_format)
 
     for logger_name in loggers:
         logger = logging.getLogger(logger_name)
@@ -28,9 +27,7 @@ def new_token_logger(token):
     filelg_h = logging.FileHandler(f"{LOG_DIR}/{token}.log")
     filelg_h.setLevel(logging.INFO)
 
-    filelg_f = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    filelg_h.setFormatter(filelg_f)
+    filelg_h.setFormatter(default_format)
 
     for logger_name in loggers:
         logger = logging.getLogger(logger_name)
