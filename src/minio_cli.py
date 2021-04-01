@@ -4,7 +4,8 @@ import enum
 from os import getenv
 import logging
 
-logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
+logger = logging.getLogger("minio")
+
 MINIO_ENDPOINT = getenv('MINIO_ENDPOINT')
 MINIO_ACCESS_KEY = getenv('MINIO_ACCESS_KEY')
 MINIO_SECRET_KEY = getenv('MINIO_SECRET_KEY')
@@ -38,7 +39,7 @@ class MinioClient:
             )
             return True
         except Exception as e:
-            logging.warning(e)
+            logger.exception("exception accured while uploding file")
             return False
 
     @staticmethod
@@ -47,4 +48,5 @@ class MinioClient:
             response = client.get_object(bucket_name, f'{file_id}.zip')
             return response.data
         except:
+            logger.exception("exception accured while fetching file")
             return None

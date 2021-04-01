@@ -3,8 +3,8 @@ from kafka import KafkaConsumer, KafkaProducer
 from os import getenv
 import json
 import logging
+logger=logging.getLogger("kafka")
 
-logging.basicConfig(filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s:%(message)s')
 KAFKA_ENDPOINT = getenv('KAFKA_ENDPOINT')
 KAFKA_CONSUMER_GP =  getenv('KAFKA_CONSUMER_GP')
 
@@ -43,5 +43,5 @@ def push_event(event) -> bool:
         producer.flush()
         return True
     except Exception as e:
-        logging.warning(e)
+        logger.exception("exception accured while pushing event in kafka")
         return False
