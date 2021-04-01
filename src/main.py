@@ -14,7 +14,7 @@ for message in kcli.get_consumer():
     try:
         code = json.loads(message.value.decode("utf-8"))
         log.new_token_logger(code['code_id'])
-        logger.info(f"===================[{code['code_id']}]===================")
+        logger.info(f"======================================[{code['code_id']}]======================================")
         logger.info("successfully accuried new record")
         event = compile(code['code_id'], code['language'])
         logger.info(
@@ -24,6 +24,6 @@ for message in kcli.get_consumer():
     except Exception as e:
         logger.exception()
     finally:
-        logging.info(f"===================[{'='*32}]===================")
+        logging.info(f"======================================[{'='*32}]======================================")
         logger.removeHandler(code['code_id'])
         kcli.get_consumer().commit()
