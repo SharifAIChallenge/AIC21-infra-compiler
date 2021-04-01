@@ -30,7 +30,7 @@ for message in kcli.get_consumer():
         logger.exception("exception accured:")
     finally:
         kcli.get_consumer().commit()
-        log.remove_token_logger(token)
         logger.info('='*32*3)
+        log.remove_token_logger(token)
     
         
