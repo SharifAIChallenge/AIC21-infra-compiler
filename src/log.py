@@ -18,6 +18,7 @@ def init():
 
     for logger_name in loggers:
         logger = logging.getLogger(logger_name)
+        logger.setLevel(logging.DEBUG)
         logger.addHandler(stdout_h)
         logger.addHandler(filelg_h)
 

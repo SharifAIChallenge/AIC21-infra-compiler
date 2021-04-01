@@ -8,6 +8,7 @@ import logging
 
 log.init()
 logger = logging.getLogger("main")
+logger.info("compiler module is up and healty")
 
 for message in kcli.get_consumer():
     try:
