@@ -4,7 +4,7 @@ LOG_DIR='/var/log/compiler'
 loggers = ["compiler", "main", "kafka", "minio"]
     
 class LoggerFormatter(logging.Formatter):
-    name_just=60
+    name_just=70
     level_just=15
     def format(self, record):
         time = self.formatTime(record, self.datefmt)
