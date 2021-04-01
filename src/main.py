@@ -27,8 +27,7 @@ for message in kcli.get_consumer():
     except Exception as e:
         logger.exception("exception accured:")
     finally:
-        logger.removeHandler(code['code_id'])
-
+        log.remove_token_logger(code['code_id'])
         kcli.get_consumer().commit()
     
     logging.info('='*32*3)
