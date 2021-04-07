@@ -1,10 +1,4 @@
-FROM reg.aichallenge.ir/python:3.8
-
-RUN apt update && apt install -y vim curl gettext
-RUN apt-get update && \
-apt install -y vim curl gettext cmake unzip && \
-pip3 install pyinstaller Keras torch scikit-learn numpy
-
+FROM reg.aichallenge.ir/aic/base/infra/compiler:v2
 # install code
 WORKDIR /home
 ADD ./requirements.txt ./requirements.txt
