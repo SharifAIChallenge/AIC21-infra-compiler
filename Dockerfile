@@ -3,7 +3,7 @@ FROM reg.aichallenge.ir/python:3.8
 RUN apt update && apt install -y vim curl gettext
 RUN apt-get update && \
 apt install -y vim curl gettext cmake unzip && \
-pip3 install pyinstaller
+pip3 install pyinstaller Keras torch scikit-learn numpy
 
 # install code
 WORKDIR /home
