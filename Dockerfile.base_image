@@ -3,7 +3,7 @@ FROM reg.aichallenge.ir/python:3.8
 
 RUN apt update && apt install -y vim curl gettext
 RUN apt-get update && \
-apt install -y vim curl gettext cmake unzip && \
+apt install -y vim curl gettext cmake unzip
 
 COPY ./base_lib_req.txt ./
-pip install -r base_lib_req.txt
+RUN pip install -r base_lib_req.txt
