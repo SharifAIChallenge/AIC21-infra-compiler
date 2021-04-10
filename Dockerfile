@@ -1,4 +1,4 @@
-FROM reg.aichallenge.ir/aic/base/infra/compiler:v2
+FROM reg.aichallenge.ir/aic/base/infra/compiler:v3
 # install code
 WORKDIR /home
 ADD ./requirements.txt ./requirements.txt
