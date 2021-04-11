@@ -59,7 +59,7 @@ function jar-bin {
 
     info "language detected: jar"
     info "start compiling using jar-stub"
-    cat ../jar-stub.sh `ls | grep "jar" | head -n1` >$BIN_PATH 2>>$LOG_PATH  
+    cat jar-stub.sh `ls | grep "jar" | head -n1` >$BIN_PATH 2>>$LOG_PATH  
     check $?
 }
 
