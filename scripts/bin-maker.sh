@@ -55,11 +55,15 @@ function java-bin {
 # holds up with the API just lacks performance
 # again:
 # if you are next gen "team e Zrsakht" then "dastet ro mibuse" 
+
+JAR_STUB_PATH="$PWD/jar-stub.sh"
+
 function jar-bin {
 
     info "language detected: jar"
     info "start compiling using jar-stub"
-    cat jar-stub.sh `ls | grep "jar" | head -n1` >$BIN_PATH 2>>$LOG_PATH  
+    pwd >>$LOG_PATH
+    cat $JAR_STUB_PATH `ls | grep "jar" | head -n1` >$BIN_PATH 2>>$LOG_PATH  
     check $?
 }
 
