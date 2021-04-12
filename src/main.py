@@ -27,7 +27,7 @@ for message in kcli.get_consumer():
         
         kcli.push_event(event.__dict__)
     except Exception as e:
-        logger.exception("exception accured:")
+        logger.exception(f"exception accured:{e}")
     finally:
         kcli.get_consumer().commit()
         logger.info('='*32*3)
