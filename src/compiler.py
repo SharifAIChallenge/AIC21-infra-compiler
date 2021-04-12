@@ -20,9 +20,9 @@ def __compile(src, language, dest) -> int:
     logger.info("starting the compiling process")
     cmd = subprocess.Popen(["./compiler-psudo.sh", src, language, dest],
                            stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    # logger.debug(cmd.stdout.read())
+    # logger.debug(cmd.stderr.read())
     cmd.communicate()
-    logger.debug(cmd.stdout.read())
-    logger.debug(cmd.stderr.read())
     
     logger.debug(f"compiling process finished with returncode: {cmd.returncode}")
     return cmd.returncode
