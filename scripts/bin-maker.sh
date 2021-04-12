@@ -47,7 +47,7 @@ function cpp-bin {
 # if you are next gen "team e Zrsakht" then "dastet ro mibuse" 
 function java-bin {
     fatal "not currently supported!\n use [jar] instead"
-    exit -1
+    return -1
 }
 
 # the function below turns the jar file into linux executalbe file
@@ -63,7 +63,14 @@ function jar-bin {
     info "language detected: jar"
     info "start compiling using jar-stub"
     pwd >>$LOG_PATH
-    cat $JAR_STUB_PATH `ls | grep "jar" | head -n1` >$BIN_PATH 2>>$LOG_PATH  
+    
+    jarfile=`ls | grep "jar" | head -n1`
+    if [ -z $jarfile ];then
+        fatal "couldn't find the jar file"
+        return -1
+    fi
+    
+    cat $JAR_STUB_PATH $jarfile >$BIN_PATH 2>>$LOG_PATH  
     check $?
 }
 
