@@ -19,8 +19,11 @@ def download_code(code_id, dest) -> bool:
 def __compile(src, language, dest) -> int:
     logger.info("starting the compiling process")
     cmd = subprocess.Popen(["./compiler-psudo.sh", src, language, dest],
-                           stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+                           stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     cmd.communicate()
+    logger.info(cmd.stdout.read())
+    logger.warning(cmd.stderr.read())
+    
     logger.debug(f"compiling process finished with returncode: {cmd.returncode}")
     return cmd.returncode
 
