@@ -18,7 +18,7 @@ function check {
 function python-bin {
     info "language detected: python"
     info "start compiling using pyinstaller"
-    pyinstaller --onefile Controller.py >>$LOG_PATH 2>&1 
+    pyinstaller --hidden-import cmath --onefile Controller.py >>$LOG_PATH 2>&1 
     check $?
     mv dist/Controller $BIN_PATH
 }    
