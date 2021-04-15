@@ -35,7 +35,8 @@ if [ $? -ne 0 ];then
 fi
 
 codebase_dir=`ls -d */ | head -n1`
-if [ -z  "$codebase_dir" ];then
+dir_count=`ls | wc |  awk '{print$1}'`
+if [ -z  "$codebase_dir" ] || [[ $dir_count -ne 1 ] ;then
     warn "no directory found in given source file"
     codebase_dir="./"
 fi
