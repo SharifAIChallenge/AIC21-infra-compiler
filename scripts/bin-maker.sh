@@ -36,10 +36,11 @@ function cpp-bin {
     info "start compiling using CMAKE"
     mkdir build
     cd build
-    cmake .. >>$LOG_PATH 2>&1
-    make >>$LOG_PATH 2>&1
-    check $?
-    mv client/client $BIN_PATH
+        cmake .. >>$LOG_PATH 2>&1
+        make >>$LOG_PATH 2>&1
+        check $?
+        pwd
+        mv ./client $BIN_PATH
     cd ..    
 }
 
