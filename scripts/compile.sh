@@ -32,6 +32,7 @@ unzip $CODE_PATH
 if [ $? -ne 0 ];then
     clean_up
     fatal "fail to unzip"
+    exit -1
 fi
 
 codebase_dir=`ls -d */ | head -n1`
@@ -68,6 +69,7 @@ case $LANG in
     ;;
   *)
     fatal "type unknown!"
+    exit -1
     ;;
 esac
 
@@ -81,4 +83,5 @@ if [ $? -eq 0 ];then
     exit 0
 else
     fatal "couldn't make the zip file"
+    exit -1
 fi
