@@ -14,6 +14,11 @@ function clean_up {
   rm -rf $BIN_PATH
 }
 
+function FATAL {
+  fatal $1
+  exit -1
+}
+
 source bin-maker.sh
 source logging.sh
 
@@ -31,8 +36,7 @@ info "made an isolated area"
 unzip $CODE_PATH
 if [ $? -ne 0 ];then
     clean_up
-    fatal "fail to unzip"
-    exit -1
+    FATAL "fail to unzip"
 fi
 
 codebase_dir=`ls -d */ | head -n1`
@@ -68,8 +72,7 @@ case $LANG in
     [ $? -ne 0 ] && exit -1
     ;;
   *)
-    fatal "type unknown!"
-    exit -1
+    FATAL "type unknown!"
     ;;
 esac
 
@@ -82,6 +85,5 @@ if [ $? -eq 0 ];then
     clean_up
     exit 0
 else
-    fatal "couldn't make the zip file"
-    exit -1
+    FATAL "couldn't make the zip file"
 fi
