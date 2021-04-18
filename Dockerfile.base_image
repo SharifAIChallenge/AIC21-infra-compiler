@@ -6,4 +6,4 @@ RUN apt-get update && \
 apt install -y vim curl gettext cmake unzip
 
 COPY ./base_lib_req.txt ./
-RUN pip install -r base_lib_req.txt
+RUN pip install -r base_lib_req.txt -f https://download.pytorch.org/whl/torch_stable.html
