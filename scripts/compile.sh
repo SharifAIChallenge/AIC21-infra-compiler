@@ -39,14 +39,14 @@ if [ $? -ne 0 ];then
     FATAL "fail to unzip"
 fi
 
-pwd
-ls
+# pwd
+# ls
 
 codebase_dir=`ls -d */ | head -n1`
 dir_count=`ls -d */ | wc |  awk '{print$1}'`
 
 echo "$codebase_dir:$dir_count"
-exit 0
+# exit 0
 if [ -z  "$codebase_dir" ] || [ $dir_count -ne 1 ] ;then
     warn "no directory found in given source file"
     codebase_dir="./"
