@@ -70,10 +70,11 @@ function python-bin {
     info "start compiling using pyinstaller"
     pyinstaller --hidden-import cmath --onefile $PYTHON_CLIENT_ENTRY_FILE >>$LOG_PATH 2>&1 
     check $?
-    mv dist/Controller $BIN_PATH
+    mv dist/`basename $PYTHON_CLIENT_ENTRY_FILE .py` $BIN_PATH
 }    
 
 CPP_MAKE_FILE="CMakeLists.txt"
+CPP_EXEC_FILE_NAME="client"
 # compiles the cpp client into binary file
 # the precedure taken here are based on the code
 # structure described in the github repo lined below
@@ -85,10 +86,6 @@ function cpp-bin {
 
     enter_compile_dir $CPP_MAKE_FILE
 
-    pwd
-    ls
-    exit 0
-
     info "language detected: C"
     info "start compiling using CMAKE"
     mkdir build
@@ -98,7 +95,10 @@ function cpp-bin {
         make >>$LOG_PATH 2>&1
         check $?
         pwd >>$LOG_PATH
-        mv ./client $BIN_PATH
+
+        # use -name <exec-name> if many
+        executable=`find . -name $CPP_EXEC_FILE_NAME -type f -executable -print`
+        mv $executable $BIN_PATH
     cd ..    
 }
 
