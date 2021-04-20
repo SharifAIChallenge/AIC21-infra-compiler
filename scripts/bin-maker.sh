@@ -39,8 +39,9 @@ function enter_codebase {
 # changes directory to the parent folder
 function enter_compile_dir {
     # defaulting to first one if found multiple
+    find . -iname $1
     compile_path=`find . -iname $1 | head -n1`
-    info "compile path is :$compile_patht"
+    info "compile path is :$compile_path"
 
     if [ -z compile_path ];then
         fatal "$1 not found!"
@@ -83,6 +84,10 @@ CPP_MAKE_FILE="CMakeLists.txt"
 function cpp-bin {
 
     enter_compile_dir $CPP_MAKE_FILE
+
+    pwd
+    ls
+    exit 0
 
     info "language detected: C"
     info "start compiling using CMAKE"
